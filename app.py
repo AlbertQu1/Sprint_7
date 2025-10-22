@@ -10,10 +10,10 @@ car_data = pd.read_csv(
     r'https://raw.githubusercontent.com/AlbertQu1/Sprint_7/refs/heads/main/vehicles_us.csv')
 
 # ----UI----
-st.header('Sprint 7. Cohorte 35')
+st.header('Análisis interactivo de vehículos')
 
 st.markdown("""
-Estamos trabajando apra hacer el rpyecto del sprint 7.
+Estamos trabajando el sprint 7, de la cohorte 65.
 """)
 
 # -----CLEAN DATA--------
@@ -29,10 +29,15 @@ df_car_data_1['model_year'] = pd.to_datetime(
 df_car_data_1['date_posted'] = pd.to_datetime(
     df_car_data_1['date_posted'], format='%Y-%m-%d',  errors='coerce')
 
-print(df_car_data_1.info())
-print('--------------------------------------')
-print(df_car_data_1.isnull().sum())
-print('--------------------------------------')
-print(df_car_data_1.sample(10))
+# print(df_car_data_1.info())
+# print('--------------------------------------')
+# print(df_car_data_1.isnull().sum())
+# print('--------------------------------------')
+# print(df_car_data_1.sample(10))
 
 df_car_data_clean = df_car_data_1.copy()
+
+
+def boxplot_price(df_car_data_clean):
+    fig_box = px.box(df_car_data_clean, y='price')
+    return fig_box
