@@ -7,14 +7,8 @@ import streamlit as st
 
 # file loaded raw github
 car_data = pd.read_csv(
-    r'https://raw.githubusercontent.com/AlbertQu1/Sprint_7/refs/heads/main/vehicles_us.csv')
-
-# ----UI----
-st.header('Análisis interactivo de vehículos')
-
-st.markdown("""
-Estamos trabajando el sprint 7, de la cohorte 65.
-""")
+    r'https://raw.githubusercontent.com/AlbertQu1/Sprint_7/refs/heads/main/vehicles_us.csv'
+)
 
 # -----CLEAN DATA--------
 df_car_data = car_data
@@ -34,10 +28,43 @@ df_car_data_1['date_posted'] = pd.to_datetime(
 # print(df_car_data_1.isnull().sum())
 # print('--------------------------------------')
 # print(df_car_data_1.sample(10))
-
 df_car_data_clean = df_car_data_1.copy()
 
+# -----web aplication -----
+# ---- UI -----
+st.header('Análisis interactivo de vehículos')
+st.markdown("""
+Estamos trabajando el sprint 7, de la cohorte 65.
+""")
 
-def boxplot_price(df_car_data_clean):
-    fig_box = px.box(df_car_data_clean, y='price')
-    return fig_box
+# ---- grafics definition ----
+
+
+def boxplot_price():
+    fig_box = px.box(df_car_data_clean, y='price',
+                     title='Distribuicion de precio de vehiculos')
+    explanation_1 = (
+        '**test**'
+    )
+    return fig_box, explanation_1
+
+
+def scatter_price_year():
+    fig_scatter = px.scatter(
+        df_car_data_clean, x='model_year', y='price', trendline='ols')
+    explanation_2 = (
+        '**test**'
+    )
+    return fig_scatter, explanation_2
+
+
+# ---- grafic selection -----
+opcion = st.selectbox(
+    'Seleccion de grafico',
+    ['Distribucion de precios', 'Precio vs Año']
+)
+
+if opcion == 'Distribucion de precios':
+    fig, text = boxplot_price()
+elif opcion == 'Precio vs Año':
+    fig, text = scatter_price_year()
