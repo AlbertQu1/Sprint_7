@@ -10,7 +10,14 @@ car_data = pd.read_csv(
     r'https://raw.githubusercontent.com/AlbertQu1/Sprint_7/refs/heads/main/vehicles_us.csv'
 )
 
-# -----CLEAN DATA--------
+# --- INDEX ---
+# 1.- Load and cleaning
+# 2.- Pivot table
+# 3.- KPIs
+# 4.- Display selector / table
+# Chosen graph or table
+
+# 1.-----CLEAN DATA--------
 df_car_data = car_data
 # print(df_car_data.info())
 # we need to streamline some data, model_year, cylinders,odometer, is_4w should be int and model
@@ -30,7 +37,7 @@ df_car_data_1['date_posted'] = pd.to_datetime(
 # print(df_car_data_1.sample(10))
 df_car_data_clean = df_car_data_1.copy()
 
-# ---- pivot tables used for grafics ----
+# 2.---- Pivot tables----
 pivot_type_count = pd.pivot_table(
     df_car_data_clean,
     index='type',
@@ -53,9 +60,17 @@ pivot_heatmap = pd.pivot_table(
     aggfunc='mean'
 ).reset_index()
 
+# 3.---- KPI ----
+st.header('Análisis interactivo de vehículos')
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Tipo de Vehiculos", f"{df_car_data_clean['type'].nunique()}")
+col2.metric("Inventario Total", f"{len(df_car_data_clean):,}")
+col3.metric("Precio Promedio", f"{df_car_data_clean['price'].mean():,.2f}")
+col4.metric("Dias Promedio de Venta",
+            f"{df_car_data_clean['days_listed'].mean():.2f}")
 # -----web aplication -----
 # ---- UI -----
-st.header('Análisis interactivo de vehículos')
+
 st.markdown("""
 Estamos trabajando el sprint 7, de la cohorte 65.
 """)
