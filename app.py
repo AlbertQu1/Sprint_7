@@ -236,8 +236,6 @@ def conclusion():
 
         Este proyecto resume de forma práctica los conocimientos adquiridos, integrando técnicas 
         de análisis, visualización y despliegue web en un solo flujo de trabajo.
-
-        Repositorio **GitHub**: https://github.com/AlbertQu1/Sprint_7.git
         """
     )
     return None, c_text
